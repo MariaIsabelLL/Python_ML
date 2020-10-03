@@ -209,8 +209,6 @@ print('R2-score: %.2f' % r2_score(test_y_ , test_y) )
 
 '''====================================================================='''
 '''Clasificacion K nearest neighbor'''
-#https://www.aprendemachinelearning.com/clasificar-con-k-nearest-neighbor-ejemplo-en-python/
-#https://www.aprendemachinelearning.com/arbol-de-decision-en-python-clasificacion-y-prediccion/
 '''====================================================================='''
 from matplotlib.colors import ListedColormap
 import matplotlib.patches as mpatches
@@ -289,8 +287,6 @@ plt.show()
 
 '''====================================================================='''
 '''Clasificacion Decision Tree'''
-#https://www.iartificial.net/arboles-de-decision-con-ejemplos-en-python/
-#https://nataliaacevedo.com/arboles-de-decision-usando-python-codigo-paso-a-paso/
 '''====================================================================='''
 
 from sklearn.datasets import load_iris 
@@ -328,9 +324,6 @@ graph.write_png('tree.png')
 
 '''====================================================================='''
 '''Clustering'''
-#https://www.aprendemachinelearning.com/k-means-en-python-paso-a-paso/
-#http://exponentis.es/ejemplo-de-clustering-con-k-means-en-python
-#https://www.jacobsoft.com.mx/es_mx/k-means-clustering-con-python/
 '''====================================================================='''
 
 from sklearn.cluster import KMeans
