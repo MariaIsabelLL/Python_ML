@@ -153,3 +153,64 @@ def modelo_LSTM():
     graficos(history)
 
 modelo_LSTM()
+
+
+###################################################################################
+#Red Neuronal Convolucional
+###################################################################################   
+from keras.datasets import cifar10
+
+def modelo_RCN():
+
+    (X_train, y_train), (X_test, y_test) = cifar10.load_data()
+
+    #normalizamos tanto X_train como X_test
+    #X_train = X_train/255
+    #X_test = X_test/255
+
+    print("Size of:")
+    print("- Training-set:\t\t{}".format(len(X_train)))
+    print("- Test-set:\t\t{}".format(len(X_test)))
+    #print("- Validation-set:\t{}".format(len(data.validation.labels)))
+    print(y_test[1])
+    print(y_test)
+    
+    shape_x = X_train.shape[1:]
+    
+    #iniciamos el modelo
+    model = Sequential()
+    model.add(Conv2D(32, (3, 3), padding='same', activation='relu', input_shape = shape_x)) #32 filtros de 3x3
+    #model.add(Conv2D(32, (3, 3), activation='relu')) #32 filtros de 3x3
+    model.add(MaxPooling2D(pool_size=(2, 2))) #2x2
+    model.add(Dropout(0.25)) #desactiva el 25% de las conexiones entre las neuronas
+    
+    #repetimos todas las capas otra vez
+    model.add(Conv2D(64, (3, 3), padding='same', activation='relu')) #64 filtros de 3x3
+    #model.add(Conv2D(64, (3, 3), activation='relu')) #64 filtros de 3x3
+    model.add(MaxPooling2D(pool_size=(2, 2)))
+    model.add(Dropout(0.25))
+    
+    #repetimos todas las capas otra vez
+    model.add(Conv2D(64, (3, 3), padding='same', activation='relu'))
+    #model.add(Conv2D(64, (3, 3), activation='relu'))
+    model.add(MaxPooling2D(pool_size=(2, 2)))
+    model.add(Dropout(0.25))
+    
+    model.add(Flatten())  #convertir las matrices en un vector
+    model.add(Dense(512, activation='relu'))
+    model.add(Dropout(0.5))
+    model.add(Dense(10, activation='softmax')) #10 neuronas de salida, similar a la cantidad de clases
+       
+    #compilamos el modelo
+    model.compile(loss='sparse_categorical_crossentropy',
+                  optimizer='adam',
+                  metrics=['accuracy'])    
+    
+    size_batch = 256 #procesar las imágenes en lotes de 256 
+    epocas = 20 
+    history = model.fit(X_train, y_train, batch_size= size_batch, epochs=epocas, verbose=1)
+    model.evaluate(X_test, y_test)
+    graficos(history,1)
+    
+modelo_RCN()
+
